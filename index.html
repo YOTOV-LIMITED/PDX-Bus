@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Pdx-bus by YOTOV-LIMITED</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Pdx-bus</h1>
+      <h2 class="project-tagline">iPhone application for Portland, Oregon Bus and train arrivals.</h2>
+      <a href="https://github.com/YOTOV-LIMITED/PDX-Bus" class="btn">View on GitHub</a>
+      <a href="https://github.com/YOTOV-LIMITED/PDX-Bus/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/YOTOV-LIMITED/PDX-Bus/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <p>PDX Bus is an award winning application that displays arrival times for public transport in Portland, Oregon.</p>
+
+<p>(PDX Bus won Best in Show at the <a href="http://www.CivicApps.org">CivicApps.org</a> awards)</p>
+
+<p>This little application uses the Internet to quickly access TriMet's live tracking data to display arrival times perfectly formatted for the iPhone. It allows you to bookmark frequently used stops, displays recently accessed stops, and gives details for arrivals which are en-route.</p>
+
+<p>You can enter the stop "id" of the stop (as displayed at each stop or station) or you can browse the routes for the stop.</p>
+
+<p>Features include:</p>
+
+<ul>
+<li>Interactive rail maps, showing the MAX, WES and Streetcar stops.</li>
+<li>Embedded maps, showing locations of stops, and when available, the last known position of the bus or train.</li>
+<li>Use GPS to locate nearby stops or rail stations.</li>
+<li>Browse routes and stops, show an entire route on the map.</li>
+<li>Links to TriMet route information.</li>
+<li>Displays Rider Alerts, and Detours.</li>
+<li>A "Nighttime visibility flasher" - a flashing screen that can be used at night so that drivers can see you. TriMet suggests holding up a cell phone to make yourself visible to bus drivers.</li>
+<li>Trip Planning - now you can use the same trip planning feature that is available on TriMet's web site.</li>
+<li>Specially formatted text to work with the iPhone 3GS VoiceOver accessibility feature to speak arrivals.</li>
+</ul>
+
+<p>Route and arrival data provided by permission of TriMet.</p>
+
+<h1>
+<a id="pdx-bus-81-sources" class="anchor" href="#pdx-bus-81-sources" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>PDX Bus 8.1 sources</h1>
+
+<p>I am making the sources to PDX Bus version 7.9 available as part of the
+<a href="http://www.civicapps.org">Civic Apps</a> competition.  These
+sources were developed by me from Apple samples and documentation, except 
+where explicitly mentioned in the code.  </p>
+
+<p>I am choosing to release a copy of the code under the 
+<a href="http://www.mozilla.org/MPL/">MPL 2.0</a> License but I retain the copyright,
+which enables me to release the iPhone app under the regular Apple iPhone 
+license (this avoids any conflict of licenses for the time being).
+ (No outside MPL or GPL code has been incorporated into the
+code, some BSD License has been included, it is clearly marked).<br>
+However - this really is the exact same code that was used to build the app, and 
+I will continue to release the code for all future releases (the method of 
+release may change).</p>
+
+<p>I regret that I probably do not have the time to answer general support 
+questions about iPhone application development - all you need to know can be 
+found at <a href="http://developer.apple.com">http://developer.apple.com</a>
+(You need a Mac to develop for the iPhone, you will also need to purchase a 
+$100 membership to get a certificate to put an application on
+an actual device).</p>
+
+<p>Because I wish to retain the sole copyright on the code, I am currently not
+yet collaborating on development - but this may change as I work out
+how open source iPhone development can work.</p>
+
+<p>Of course this code can be used as a reference 
+and in other code, but be sure to comply with the license! This code was 
+written initially as a fun learning project for me to learn Objective-C, and 
+has grown from there.  There may be better, more efficient, cleaner, more 
+elegent or more correct ways to do all of it, but this is what I came up with 
+in my spare time, and it gets the job done.  I am working on tidying it up 
+to enable it to be of more use.</p>
+
+<h2>
+<a id="links" class="anchor" href="#links" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Links</h2>
+
+<ul>
+<li><a href="http://pdxbus.teleportaloo.org">PDX Bus Blog</a></li>
+<li><a href="https://itunes.apple.com/app/pdx-bus-max-streetcar-and-wes/id289814055?mt=8">PDX Bus in the iTunes store</a></li>
+<li><a href="http://twitter.com/pdxbus">PDX Bus on Twitter</a></li>
+<li><a href="http://facebook.com/pdxbus">PDX Bus on Facebook</a></li>
+</ul>
+
+<h2>
+<a id="things-to-know-before-building" class="anchor" href="#things-to-know-before-building" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Things to know before building</h2>
+
+<ul>
+<li>PDX Bus is built with iPhone SDK 9.2 and Xcode 7.2 - available free
+from <a href="http://developer.apple.com">Apple</a> in their Mac App store.</li>
+<li>Before building this code you will need to register with TriMet 
+to get a free "AppID" from <a href="http://developer.trimet.org/registration/">TriMet</a>,
+this is so that TriMet can track who is using their API. The AppID is 
+placed in TriMetTypes.h as the #define TRIMET_APP_ID.  Without this id 
+the application will not work, the code will not compile until this is 
+addressed.</li>
+<li>For licensing reasons, some graphics are not included with this source 
+(see below).</li>
+<li>Other graphics are included under Creative Commons Licenses - please check the
+folders for the particular licenses used.</li>
+<li>The data feed from <a href="http://www.civicapps.org/datasets/portland-streetcar-routes-arrivals">Next Bus</a> 
+has terms and conditions (including a non-commercial clause) but does 
+not need an application ID.</li>
+<li>This builds with one warning - "All interface orientations must be supported 
+unless the app requires full screen". This is because on the iPhone we don't 
+want the app to go into landscape mode.</li>
+</ul>
+
+<h2>
+<a id="graphics" class="anchor" href="#graphics" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Graphics</h2>
+
+<p>This source distribution builds and runs, but the project will not attempt 
+to copy any missing graphics files into the application package.<br>
+If you download the graphics from the sources below, you must enable 
+the project to copy them into the application. </p>
+
+<h3>
+<a id="trimet-graphics" class="anchor" href="#trimet-graphics" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>TriMet Graphics</h3>
+
+<p>Two graphics files were provided to me by permission of TriMet, and should 
+be placed in the TriMet folder and then assigned to the target in the Xcode 
+project (see below).
+PDX Bus will work without them, except the Rail Map will not be displayed.</p>
+
+<ul>
+<li>The visittrimeticon.gif file is available from the TriMet page about 
+<a href="http://www.trimet.org/help/linking.htm">linking</a>
+</li>
+<li>The map of the rail system, railsystem.gif, is a 2000x765 gif file made 
+from the PDF of the rail map.<br>
+(The size here is important for the positioning of the hotspots). The original 
+file is available here -
+<a href="http://www.trimet.org/maps/railsystem.htm">http://www.trimet.org/maps/railsystem.htm</a> - I was granted special permission to use it for PDX Bus with a disclaimer - 
+you will need to ask permission if you want to distribute it
+in some way.  Note that I took the PDF and made the GIF file - the GIF 
+file provided by TriMet is too small
+and will not work.  This gif file is converted into a set of tiles to enable a more efficient display.</li>
+</ul>
+
+<h3>
+<a id="enabling-the-project-to-use-the-graphics" class="anchor" href="#enabling-the-project-to-use-the-graphics" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Enabling the project to use the graphics</h3>
+
+<p>Once the graphics have been downloaded and copied into place you will need to 
+enable them in the project.</p>
+
+<ul>
+<li>In the Xcode project, under Resouces you will find graphics folders. The file names
+will be red for any missing files.</li>
+<li>For files that are not red, select them all, CTRL-Click then 
+choose "Get Info" from the pop-up menu.</li>
+<li>On the Info dialog box, click on the Targets tab, and select 
+"PDX Bus".</li>
+</ul>
+
+<h3>
+<a id="attributions" class="anchor" href="#attributions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Attributions</h3>
+
+<ul>
+<li>
+<p>Aha-Soft - some graphics files from Aha-Soft are used under a 
+<a href="http://creativecommons.org/licenses/by/3.0/us/">Creative Commons Attribution-Share Alike 3.0 License</a>. 
+These files are in a separate folder with attributions:</p>
+
+<ul>
+<li>Attribution:  <a href="http://www.small-icons.com/packs/24x24-free-application-icons.htm">http://www.small-icons.com/packs/24x24-free-application-icons.htm</a>.</li>
+<li>Attribution:  <a href="http://www.small-icons.com/packs/48x48-free-time-icons.htm">http://www.small-icons.com/packs/48x48-free-time-icons.htm</a>.</li>
+<li>Attribution:  <a href="http://www.small-icons.com/packs/48x48-free-object-icons.htm">http://www.small-icons.com/packs/48x48-free-object-icons.htm</a>.</li>
+</ul>
+</li>
+<li><p>Glyphish Attribution - some graphics files from Gliphish.com are used under a
+<a href="http://creativecommons.org/licenses/by/3.0/us/">Creative Commons Attribution-Share Alike 3.0 License</a>
+These files are in a separate folder with attribution - 
+<a href="http://glyphish.com">Icons by Joseph Wain / glyphish.com</a>
+The high-resolution retina toolbar icons are not redistributable so are not 
+included in this distrubution.</p></li>
+<li><p>Rob Alan Attribution - some graphics files from Rob Alan are used under a
+<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License</a>.
+These files are in a separate folder with attribution - <a href="http://robalan.com">App Icon by Rob Alan</a></p></li>
+<li><p>The Working Group Attribution - some graphics files from The Working Group are from <a href="http://blog.twg.ca/2009/09/free-iphone-toolbar-icons/">The Working Group</a> and are used under a 
+<a href="http://creativecommons.org/licenses/by/3.0/us/">Creative Commons Attribution-Share Alike 3.0 License</a>.</p></li>
+<li><p>Gentleface Attribution - some graphics files from Gentleface are from <a href="http://gentleface.com/free_icon_set.html">Gentleface</a> and are used under a 
+<a href="http://creativecommons.org/licenses/by-nc/3.0/">The Creative Commons Attribution-NonCommercial 3.0 License</a>.</p></li>
+<li><p>Oxygen Attribution - some graphics files from Oxygen-Icons.org are from <a href="http://www.oxygen-icons.org">Oxygen Icons</a> and are used under a 
+<a href="http://creativecommons.org/licenses/by/3.0/us/">Creative Commons Attribution-Share Alike 3.0 License</a></p></li>
+<li><p>Mike Koenig Attribution - the Train Honk file is from Mike Koenig and are used under a 
+<a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution License</a>- location
+<a href="http://soundbible.com/1695-Train-Honk-Horn-2x.html">soundbible.com</a>.</p></li>
+<li><p>QR Code Scanning - ZXing library [http://<a href="http://code.google.com/p/zxing/">http://code.google.com/p/zxing/</a>] is Apache 2.0 licensed with changes by A.R.Wallace.</p></li>
+<li><p>Leah Culver - Pull to Refresh: [<a href="http://github.com/leah/PullToRefresh">http://github.com/leah/PullToRefresh</a>] - license below:</p></li>
+</ul>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+
+<h2>
+<a id="change-log" class="anchor" href="#change-log" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Change log</h2>
+
+<h3>
+<a id="version-81-june-2016" class="anchor" href="#version-81-june-2016" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version 8.1 (June 2016)</h3>
+
+<ul>
+<li>iOS 6 fixed</li>
+<li>Added debug option to turn off HTTPS for trimet queries.  This caused a user some issues with a VPN.</li>
+<li>Added dictations to Watch (hard press from home).</li>
+<li>Added keypay to Watch (hard press from home)</li>
+<li>Fixed crash when unknown stop is entered.</li>
+<li>Uses the Safari Services web viewer when available.</li>
+<li>Fixed some default settings that were booleans but had string defaults.</li>
+<li>Removed ability to launch ticket app - removed link until resolved.</li>
+</ul>
+
+<h3>
+<a id="version-80-january-2016" class="anchor" href="#version-80-january-2016" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version 8.0 (January 2016)</h3>
+
+<ul>
+<li>Updated for iOS9.</li>
+<li>Added search.</li>
+<li>Fixed notifications</li>
+<li>Updated TriMet map to include correct streetcar colors</li>
+<li>Added 3D Touch menu to the main screen</li>
+<li>Fixed orientation issues.</li>
+<li>Added Handoff to watch and app.</li>
+<li>Fixed block colors on watch.</li>
+<li>Fixed problem with streetcar locations being missing when user shows "Map of arrivals" as it was not getting the nextbus data for locations.</li>
+<li>Improved navigation through lists of stops on the watch</li>
+<li>Added pull to refresh on the arrival details.</li>
+<li>Arrival details now refreshable and uses the same arrival large mins; added a map.</li>
+<li>Added arrows to the maps using the bearing.</li>
+<li>Refactored some of the core library to remove more UI stuff.</li>
+<li>Fixed the trip planner instructions when a vehicle changes route.</li>
+<li>Centralized distance formatting and changed to be tenths of a mile.</li>
+<li>Added reverse direction lookup.</li>
+<li>Added commuter bookmark to watch.</li>
+<li>Added handoff for trip planned to phone app.</li>
+<li>Fixed bug when deleting recent trips or arrivals;  it would delete the first one.</li>
+<li>Fixed iPad Pro formatting and iPad split screen / overlay multi-tasking.</li>
+<li>Fixed location services in the background for iOS9 - proximity alarms will now work.</li>
+<li>Added alarms for deboardings</li>
+<li>Updated location authorization dialogs to go directly to the settings page</li>
+<li>Updated logging.</li>
+<li>Added formatting to the help screen.</li>
+</ul>
+
+<h3>
+<a id="version-711-september-2015" class="anchor" href="#version-711-september-2015" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version 7.11 (September 2015)</h3>
+
+<ul>
+<li>Added Orange line support including new color and updated MAX and WES MAP</li>
+<li>Added A Loop and B Loop colors and new streetcar map</li>
+<li>TriMet API now uses HTTPS.</li>
+</ul>
+
+<h3>
+<a id="version-79-august-2015" class="anchor" href="#version-79-august-2015" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version 7.9 (August 2015)</h3>
+
+<ul>
+<li>Refactored code into a framework to allow for an extension - refactored other code to separate out the UI from data.</li>
+<li>Added Apple Watch app with simple arrivals and locate nearby stops.</li>
+<li>Fixed Arrival table size for older iPhones.</li>
+<li>Added better support for localization authorization.</li>
+<li>Fixed date and time screen on iPads when rotated.</li>
+<li>Fixed Streetcat typo</li>
+<li>Merged Pebble support into mainline code</li>
+<li>Dropped support for iOS 5 and updated deprecated items.</li>
+</ul>
+
+<h3>
+<a id="version-72-december-2014" class="anchor" href="#version-72-december-2014" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version 7.2 (December 2014)</h3>
+
+<ul>
+<li>Updated for iOS 8.</li>
+<li>Native support for iPhone 6 + 6 Plus screen sizes</li>
+<li>New MAX and WES map.</li>
+<li>Updated disclaimer for maps.</li>
+<li>Added text to explain the different colors used for the arrival times.</li>
+<li>Removed streetcar data tables;  streetcar data is fetched via TriMet feed now except for location data.</li>
+<li>Changed the keyboard type to allow emoji again.</li>
+</ul>
+
+<h3>
+<a id="version-71-february-2014" class="anchor" href="#version-71-february-2014" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version 7.1 (February 2014)</h3>
+
+<ul>
+<li>Fix for Streetcar API changes</li>
+<li>Added back 'Bookmarks at the top' setting.</li>
+<li>Added Cross for canceled buses.</li>
+<li>Fixed refresh timer button so it doesn't flash.</li>
+<li>Fixed app store link from main screen.</li>
+<li>Fixed table alignment when using prompts on navigator bar in iOS7.</li>
+<li>Fixed window size for iPad rail map view and web view.</li>
+<li>Now uses Apple's geocoder for getting addresses from GPS locations</li>
+<li>Fixed issues when GPS is used for destination in Trip Planner.</li>
+<li>Added back proximity alarm icon.</li>
+<li>Moved machine generated into into their own files.</li>
+<li>Removed black color theme as it does not work well in iOS7.</li>
+<li>Changed JELD-WEN Field to Providence Park.</li>
+<li>Added Route map with stops to arrival details.</li>
+<li>Toolbar map icon now behaves consistantly &amp; added new menu item to map arrivals.</li>
+<li>64-bit type casting changes.</li>
+<li>Added new pdxbusroute: URL to support the BlindSquare app.</li>
+<li>Added tiling to the MAX and Steetcar maps - this reduces the number of hotspots to search by a lot as for each tile there is a short array to search.</li>
+<li>Moved streetcar data into a singleton instread of it being with the app object; removed streetcar exception code.</li>
+<li>Fixed circular references in the RailMapView - this caused a memory leak that was not spotted by static analyis or Instruments.</li>
+<li>Nearby stops now uses the FindByLocationView to show all the possible options.</li>
+<li>Re-allowed emoji keyboard for bookmark names</li>
+<li>Fixed iOS7 text height calculations.</li>
+</ul>
+
+<h3>
+<a id="version-70-january-2014" class="anchor" href="#version-70-january-2014" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version 7.0 (January 2014)</h3>
+
+<ul>
+<li>Updated for iOS7.</li>
+<li>Updated user interface for iOS 7.</li>
+<li>New icon from Rob Alan.</li>
+<li>Added vehicle color "tags"</li>
+<li>Added TriMet Facebook page.</li>
+<li>Added support to launch TriMet Tickets App.</li>
+<li>Added warning for flashing light.</li>
+<li>Many toolbar icons are now optional - see settings.</li>
+<li>Fixed location search so that stops that are both bus and rail stops are correctly filtered.</li>
+<li>Fixed locator screen flow.</li>
+<li>Large bus line identifier now rotates on iPhone.</li>
+<li>Disabled screen rotation on old iPads as it did not fully work.</li>
+<li>Added rail map toolbar button to station list screen.</li>
+<li>Fixed streetcar arrivals on Harrison.</li>
+<li>Refactored trip planner</li>
+</ul>
+
+<h3>
+<a id="version-67-may-2013" class="anchor" href="#version-67-may-2013" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version 6.7 (May 2013)</h3>
+
+<ul>
+<li>Added Streetcar CL line to stop ID 9600 (SW 11th &amp; Alder).</li>
+<li>Added new options when pins on a map are selected - app can now open an external map app and display the location. Supported map apps include Google map app, Waze, MotionX-GPS, and Apple maps.</li>
+<li>Several map fixes including: Maps can track with location and rotate with compass heading (iOS 5 &amp; above); updated maps button to only show stops (and not arrivals) when there are multiple stops.</li>
+<li>Updated Commuter toolbar icon.</li>
+<li>Rationalized locate options; added setting to change toolbar behavior, made locate icon the same.</li>
+<li>Updated URL scheme to add parameters for nearby command:  pdxbus://nearby&amp;show=maps&amp;distance=1&amp;mode=trains where show can be maps, routes or arrivals, distance can be closest, 0.5, 1, or 3 and mode can be bus, train or both.</li>
+<li>User is now warned that the alarm will not sound if the device is muted (the app cannot detect if it is actually muted or not). This is to stop me sleeping through stops by accident.</li>
+<li>Added a new longer, more annoying sound that can be used for alarms.</li>
+<li>Fixed issue when keyboard did not show up when hitting the search button for the first time and fixed Help/Done buttons for the same editing case.</li>
+<li>Added option to open Google Chrome app instead of Safari.</li>
+<li>Updated to XCode 4.6 - fixed analysis errors found by latest analyser.</li>
+</ul>
+
+<h3>
+<a id="version-66-october-2012" class="anchor" href="#version-66-october-2012" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version 6.6 (October 2012)</h3>
+
+<ul>
+<li>Fixed stop ID 13604 - added NS Line arrivals.</li>
+<li>Optimized rail maps to use "tiles" - reducing crashes due to memory issues.</li>
+<li>Added additional informational hotspots to streetcar map.</li>
+<li>Trip planner min walk distances now match web site (1/10, 1/4, 1/2, 3/4, 1 &amp; 2 miles).</li>
+<li>Commuter bookmarks fixed (startup sequence is different in iOS6).</li>
+</ul>
+
+<h3>
+<a id="version-65-september-2012" class="anchor" href="#version-65-september-2012" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version 6.5 (September 2012)</h3>
+
+<ul>
+<li>Full support for New Portland Streetcar Central Loop Line, including Streetcar map.</li>
+<li>iOS6: Fixed crash when GPS finds no nearby stops,</li>
+<li>iOS6: Fixed calendaring.</li>
+<li>iOS6: Fixed orientation issues.</li>
+<li>Icon has been tweaked (thanks Rob!), improved launch screens.</li>
+</ul>
+
+<h3>
+<a id="version-64-september-2012" class="anchor" href="#version-64-september-2012" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version 6.4 (September 2012)</h3>
+
+<ul>
+<li>Added partial support for new Streetcar Loop. Full support soon!</li>
+<li>New for iOS 6 - added support for transit routing from Apple's map app.</li>
+<li>Full screen iPhone 5 support.</li>
+<li>New retina display launch screens.</li>
+<li>Dropped support for original iPhone running iOS 3.2. :-(</li>
+<li>Extended URL scheme to include new keywords: "nearby", "commute", "tripplanner", "qrcode", "bookmarknumber="</li>
+</ul>
+
+<h3>
+<a id="version-63-september-2012" class="anchor" href="#version-63-september-2012" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version 6.3 (September 2012)</h3>
+
+<ul>
+<li>Added QR code reader</li>
+<li>Added new higher resolution rail map with no zones and new PSU stations</li>
+<li>Added Twitter integration</li>
+<li>Added XML viewer integration</li>
+<li>Removed Rail Map from iOS3.1 - it crashes, low memory.</li>
+<li>Updated to XCode 4.4 and fixed analysis issues.</li>
+<li>Extended app URL scheme e.g. pdxbus://365 will launch PDX Bus and show stop 365.  (Useful for app launchers such as 'Icon Project' or 'Launch Center Pro').</li>
+<li>Trip planner allows min walking distance of 0.1 miles</li>
+</ul>
+
+<h3>
+<a id="version-624-june-2012" class="anchor" href="#version-624-june-2012" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version 6.2.4 (June 2012)</h3>
+
+<ul>
+<li>Support for Xcode 4.3.2; still compiles and runs on original iPhone.</li>
+<li>Fixed Xcode 4.3.2 analysis issues</li>
+<li>Fixed VoiceOver issues with "segment controls" and buttons.</li>
+<li>Changed app name to "PDX Bus" (added the space).</li>
+<li>Increased size of 'X' icon to make easier to touch.</li>
+<li>Caches are more robust, if the app discovers it had previously crashed it will delete all caches.</li>
+<li>Fixed weak reference in background task container - this will now be cleared when the view object is dealloced - this is about 33% of crashes.</li>
+<li>Added alert for when an alarm will not be able to complete in the background so the user knows to go back to PDX Bus.</li>
+<li>Added short version string to budle version to allow archiving to get the version.</li>
+<li>Added debug option to turn off all caching (as caching sometimes causes crashes).</li>
+<li>Added Plan trip from here/to here options on the rail station screen.</li>
+</ul>
+
+<h3>
+<a id="version-61-november-2011" class="anchor" href="#version-61-november-2011" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version 6.1 (November 2011)</h3>
+
+<ul>
+<li>Support for Xcode 4.2; still compiles and runs on original iPhone.</li>
+<li>Fixed Xcode 4.2 analysis issues</li>
+<li>Added Pull to Refresh code</li>
+<li>Fixed issues with using Contacts with the Trip Planner in iOS5.</li>
+<li>Now caches arrivals for up to two hours for devices that are not always connected.</li>
+<li>Added a quick locate toolbar item to the first screen.</li>
+<li>Added code to flash the LED if the hardware is available and the OS version allows.</li>
+</ul>
+
+<h3>
+<a id="version-601-august-2011" class="anchor" href="#version-601-august-2011" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version 6.0.1 (August 2011)</h3>
+
+<ul>
+<li>Fixed locate nearby stops so that GPS cannot be left on.<br>
+</li>
+</ul>
+
+<h3>
+<a id="version-60" class="anchor" href="#version-60" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version 6.0</h3>
+
+<ul>
+<li>Updated PGE Park to JELD-WEN Field on the map.  Go Timbers!</li>
+<li>Added 'commuter bookmarks' - any bookmark can be configured to automatically display
+on your morning or evening commute.</li>
+<li>Added a proximity alarm to alert you when you get close to a stop (iOS 4.0 and above).</li>
+<li>Added an arrival alarm to alert you when a bus or train is getting close (iOS 4.0 and above).</li>
+<li>Added 'Plan trip from here' option to arrival screen.</li>
+<li>Arrivals have an arrow to expand the rows to include extra menu items for each stop.</li>
+<li>Locate by route now allows multiple route selection.</li>
+<li>Updated network error processing.</li>
+<li>Added in-app settings which are the same as the Settings app settings.</li>
+<li>Updated many user interface elements, including: reverse button on trip planner.</li>
+<li>Bug fixes - now loads on iOS5.<br>
+</li>
+</ul>
+
+<h3>
+<a id="version-52" class="anchor" href="#version-52" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version 5.2</h3>
+
+<ul>
+<li>User requested changes:
+
+<ul>
+<li>Arrival screen now shows  the scheduled time in addition to the estimated time (so you can tell if a bus is running late or early).   The arrival time screen has been adjusted to make space for this (e.g. arrivals are not shown to the nearest second and a button has been removed).The find stop by location feature has been updated to be more flexible and have more options (such as showing the nearest routes and going straight to a map).</li>
+<li>The "busy" screen has been updated to show what stop is being downloaded.</li>
+<li>Added a very large font Bus Line identifier screen. This is intended as an alternative to the large-print book provided to partially sighted travelers to let the operator know which bus they need to board.</li>
+</ul>
+</li>
+<li>Other updates:
+
+<ul>
+<li>Updated the rail map to include Bike &amp; Ride Info.</li>
+<li>Added a Facebook Fan Page.</li>
+<li>Added a few more retina graphics.</li>
+<li>Several bug fixes and new settings (to work around a continuous refresh issue).</li>
+<li>Phone will not go to sleep while showing the Night Visibility Flashing Light (user is warned). </li>
+</ul>
+</li>
+</ul>
+
+<h3>
+<a id="version-51" class="anchor" href="#version-51" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version 5.1</h3>
+
+<ul>
+<li>Updated to use TriMet's new location services API, removing the need for the stop location database (saving about 230K).</li>
+<li>Added new hi-res icons for the retina display.</li>
+<li>Bug fixes: e.g. fixed ability to add user-entered IDs to bookmarks.</li>
+</ul>
+
+<h3>
+<a id="version-50" class="anchor" href="#version-50" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version 5.0</h3>
+
+<ul>
+<li>Trips can now be bookmarked and then re-planned with a single touch. Check out the bookmark icon in the toolbar on the trip screen.  Tip:  bookmark a trip from the Current Location to your home and call it "Take me home!"</li>
+<li>The Trip planner user interface has a new more intuitive flow, and the map has a previous/next button to step through the trip. </li>
+<li>Trips are automatically saved to a new "Recent Trips" screen and can be viewed later without a network connection.</li>
+<li>Trips can be texted to other cell phone users directly from inside PDX Bus (requires an iPhone with iOS 4.0).</li>
+<li>Trips can be added as events to the calendar (iOS 4.0 required).</li>
+<li>Trips planned using the GPS now show the location's name instead of 'Current Location'.</li>
+<li>Added 'Search rail stations' screen.</li>
+<li>Rail arrivals include a colored circle to indicate the line.</li>
+<li>Stops can be sorted alphabetically.</li>
+<li>Recent stops now have their own screen.</li>
+<li>Added up/down arrows to the rider alerts and fixed fonts sizes.</li>
+<li>Settings now update instantly in iOS4;  added Color Themes and made it blue by default.</li>
+</ul>
+
+<h3>
+<a id="version-421" class="anchor" href="#version-421" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version 4.2.1</h3>
+
+<ul>
+<li>Stylish new icon</li>
+<li>Updated attributions (including Civic App award!)</li>
+<li>Minor bug fixes</li>
+<li>Fixed issue with some Streetcar stops giving the wrong arrivals (e.g. Stop ID 12375).</li>
+</ul>
+
+<h3>
+<a id="version-42" class="anchor" href="#version-42" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version 4.2</h3>
+
+<ul>
+<li>Support for iOS4 and fast switching between apps. Regular features are designed to work on all models of iPhone, iPad and iPod touch running OS version 3.0 and above.</li>
+<li>The current location "blue dot" is now shown on all maps.</li>
+<li>The tip planner map now shows the actual route of the buses and trains.</li>
+<li>Fixed usability issue with bookmarks - the bookmark icon can be used to edit or delete an existing bookmark was well as to add one.</li>
+<li>Routes, directions and stop names are cached until the end of each day (or optionally until the end of the week).  (TriMet tells me that routes only change at midnight - mostly they change weekly on Sunday but occasionally they change mid-week).</li>
+<li>Multiple bug fixes and tweaks (e.g.  fixed iPhone font issues introduced when adding iPad support, fixed different behavior of home button).</li>
+</ul>
+
+<h3>
+<a id="version-41" class="anchor" href="#version-41" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version 4.1</h3>
+
+<p>First Open Source Version.</p>
+
+<p>HAVE FUN!</p>
+
+<p>Andrew Wallace, August 2015.</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/YOTOV-LIMITED/PDX-Bus">Pdx-bus</a> is maintained by <a href="https://github.com/YOTOV-LIMITED">YOTOV-LIMITED</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
